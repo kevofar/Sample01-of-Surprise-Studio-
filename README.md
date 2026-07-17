@@ -2,11 +2,11 @@
 This is a repository for the first sample of Surprise Studio, which is a studio under REMANIANS.
 # 🌸 Surprise Studio — Sample 01: Interactive Date Invitation
 
-Welcome to **Sample 01** by **Surprise Studio** ✨. This is a lightweight, high-impact, single-page web application designed as a creative digital experience for couples. It serves as an interactive and romantic way to ask someone out on a date, collect their preferences, and seamlessly send their responses back.
+Welcome to **Sample 01** by **Surprise Studio**. This is a lightweight, high-impact, single-page web application designed as a creative digital experience for couples. It serves as an interactive and romantic way to ask someone out on a date, collect their preferences, and seamlessly send their responses back.
 
 ---
 
-## ✨ Features
+##  Features
 
 * **Persistent "Yes" Mechanic:** Built with a playful, persistent game logic where the "No" button shrinks and bounces away on click, ensuring a joyful "Yes" result!
 * **Multi-Step Dynamic Wizard:** A seamless transition of steps across a beautifully blurred card UI that guides the user through choosing date preferences.
@@ -20,7 +20,7 @@ Welcome to **Sample 01** by **Surprise Studio** ✨. This is a lightweight, high
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 * **Frontend:** Clean Semantic HTML5
 * **Styling:** Custom CSS3 (featuring Backdrop Filters, CSS Preserved-3D Button effects, and custom keyframe animations)
