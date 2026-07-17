@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Can we go out for a date, Princess?? 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffe9e9 0%, #f9c4d2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            transition: all 0.5s ease;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 40px 50px;
+            border-radius: 2em;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            max-width: 750px;
+            width: 100%;
+            transition: all 0.5s ease;
+            min-height: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        h1 {
+            color: #382b22;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .message {
+            font-size: 1.3rem;
+            color: #5a3d44;
+            margin-bottom: 40px;
+            min-height: 60px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .sub-message {
+            font-size: 1rem;
+            color: #7a5d64;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        /* --- Progress Bar --- */
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #dcc0c0;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: #b18597;
+            transform: scale(1.3);
+        }
+
+        .progress-dot.done {
+            background: #f9c4d2;
+        }
+
+        /* --- Back Button --- */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            background: rgba(255, 240, 240, 0.8);
+            border: 2px solid #b18597;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            color: #382b22;
+            font-weight: 500;
+            gap: 6px;
+        }
+
+        .back-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: #382b22;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #f9c4d2;
+            transform: translateX(-3px);
+            box-shadow: 0 5px 15px rgba(177, 133, 151, 0.3);
+        }
+
+        .back-btn:hover svg {
+            transform: translateX(-4px);
+        }
+
+        .back-btn.hidden {
+            display: none;
+        }
+
+        /* --- Page 1: Yes/No Buttons --- */
+        .buttons-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            min-height: 120px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        /* --- Button styles from Uiverse --- */
+        button {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            outline: none;
+            border: 0;
+            vertical-align: middle;
+            text-decoration: none;
+            font-family: inherit;
+            font-size: 15px;
+            transition: all 0.2s cubic-bezier(0, 0, 0.58, 1);
+            flex-shrink: 0;
+        }
+
+        button.learn-more {
+            font-weight: 600;
+            color: #382b22;
+            text-transform: uppercase;
+            padding: 1.25em 2em;
+            background: #fff0f0;
+            border: 2px solid #b18597;
+            border-radius: 0.75em;
+            transform-style: preserve-3d;
+            transition: background 150ms cubic-bezier(0, 0, 0.58, 1),
+                        transform 150ms cubic-bezier(0, 0, 0.58, 1),
+                        all 0.3s ease;
+        }
+
+        button.learn-more::before {
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #f9c4d2;
+            border-radius: inherit;
+            box-shadow: 0 0 0 2px #b18597, 0 0.625em 0 0 #ffe3e2;
+            transform: translate3d(0, 0.75em, -1em);
+            transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+                        box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+        }
+
+        button.learn-more:hover {
+            background: #ffe9e9;
+            transform: translate(0, 0.25em);
+        }
+
+        button.learn-more:hover::before {
+            box-shadow: 0 0 0 2px #b18597, 0 0.5em 0 0 #ffe3e2;
+            transform: translate3d(0, 0.5em, -1em);
+        }
+
+        button.learn-more:active {
+            background: #ffe9e9;
+            transform: translate(0em, 0.75em);
+        }
+
+        button.learn-more:active::before {
+            box-shadow: 0 0 0 2px #b18597, 0 0 #ffe3e2;
+            transform: translate3d(0, 0, -1em);
+        }
+
+        #yesBtn {
+            background: #ffd6e0;
+            border-color: #b18597;
+            z-index: 2;
+        }
+
+        #yesBtn::before {
+            background: #f9c4d2;
+        }
+
+        #yesBtn:hover {
+            background: #ffc8d4;
+        }
+
+        #noBtn {
+            background: #e8d5d5;
+            border-color: #b18597;
+            z-index: 1;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        #noBtn::before {
+            background: #dcc0c0;
+        }
+
+        .celebrate {
+            animation: pop 0.5s ease;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Steps --- */
+        .step {
+            display: none;
+            animation: fadeIn 0.6s ease;
+            width: 100%;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .step h2 {
+            color: #382b22;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            color: #5a3d44;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        /* --- Star Button for Location --- */
+        .star-btn {
+            position: relative;
+            padding: 15px 35px;
+            background: #fff0f0;
+            font-size: 17px;
+            font-weight: 500;
+            color: #382b22;
+            border: 3px solid #b18597;
+            border-radius: 8px;
+            box-shadow: 0 0 0 #fec1958c;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            font-family: inherit;
+            min-width: 180px;
+        }
+
+        .star-btn .star-1,
+        .star-btn .star-2,
+        .star-btn .star-3,
+        .star-btn .star-4,
+        .star-btn .star-5,
+        .star-btn .star-6 {
+            position: absolute;
+            width: 20px;
+            height: auto;
+            filter: drop-shadow(0 0 0 #fffdef);
+            z-index: -5;
+            transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+        }
+
+        .star-btn .star-1 { top: 20%; left: 20%; width: 25px; }
+        .star-btn .star-2 { top: 45%; left: 45%; width: 15px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-3 { top: 40%; left: 40%; width: 5px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-4 { top: 20%; left: 40%; width: 8px; transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-5 { top: 25%; left: 45%; width: 15px; transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-6 { top: 5%; left: 50%; width: 5px; transition: all 0.8s ease; }
+
+        .star-btn .fil0 { fill: #f9c4d2; }
+
+        .star-btn:hover {
+            background: transparent;
+            color: #b18597;
+            box-shadow: 0 0 25px #f9c4d28c;
+            border-color: #f9c4d2;
+            transform: translateY(-3px);
+        }
+
+        .star-btn:hover .star-1 {
+            top: -80%; left: -30%; width: 25px;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-2 {
+            top: -25%; left: 10%; width: 15px;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-3 {
+            top: 55%; left: 25%; width: 5px;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-4 {
+            top: 30%; left: 80%; width: 8px;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-5 {
+            top: 25%; left: 115%; width: 15px;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-6 {
+            top: 5%; left: 60%; width: 5px;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+
+        .star-btn.selected {
+            background: #f9c4d2;
+            border-color: #b18597;
+            box-shadow: 0 0 0 3px #f9c4d2, 0 5px 20px rgba(177, 133, 151, 0.3);
+        }
+
+        /* --- Option Grids --- */
+        .option-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        /* --- Allowed Actions: Hover Reveal Button --- */
+        .reveal-btn {
+            position: relative;
+            padding: 14px 30px;
+            background: #fff0f0;
+            font-size: 17px;
+            font-weight: 600;
+            color: #382b22;
+            border: 3px solid #b18597;
+            border-radius: 10px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+            font-family: inherit;
+            min-width: 160px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .reveal-btn .btn-front {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: #fff0f0;
+            border-radius: 10px;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+            position: relative;
+            z-index: 2;
+            padding: 10px 20px;
+            gap: 8px;
+        }
+
+        .reveal-btn .btn-back {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: #f9c4d2;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            transform: translateY(100%);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+            padding: 10px 20px;
+            gap: 8px;
+            color: #382b22;
+        }
+
+        .reveal-btn:hover .btn-front {
+            transform: translateY(-100%);
+        }
+
+        .reveal-btn:hover .btn-back {
+            transform: translateY(0);
+        }
+
+        /* When selected, stay revealed */
+        .reveal-btn.selected .btn-front {
+            transform: translateY(-100%);
+        }
+
+        .reveal-btn.selected .btn-back {
+            transform: translateY(0);
+        }
+
+        .reveal-btn.selected {
+            border-color: #8b6a73;
+            box-shadow: 0 0 0 3px #f9c4d2, 0 5px 15px rgba(177, 133, 151, 0.3);
+        }
+
+        /* --- Location Details --- */
+        .location-detail-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .detail-btn {
+            padding: 14px 32px;
+            background: #fff0f0;
+            border: 2px solid #b18597;
+            border-radius: 0.75em;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            color: #382b22;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .detail-btn:hover {
+            background: #f9c4d2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(177, 133, 151, 0.3);
+        }
+
+        .detail-btn.selected {
+            background: #f9c4d2;
+            border-color: #8b6a73;
+            box-shadow: 0 0 0 3px #f9c4d2;
+        }
+
+        /* --- My/Your Place Special Buttons --- */
+        .place-btn {
+            position: relative;
+            padding: 20px 45px;
+            font-size: 20px;
+            font-weight: 700;
+            border: 3px solid #b18597;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.5s ease;
+            min-width: 180px;
+            min-height: 80px;
+            overflow: hidden;
+            background: #fff0f0;
+            color: #382b22;
+        }
+
+        .place-btn .emoji-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .place-btn .floating-emoji {
+            position: absolute;
+            font-size: 24px;
+            animation: floatUp 2.5s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-120px) scale(1.3) rotate(30deg);
+            }
+        }
+
+        .place-btn.my-place:hover {
+            background: #ff6b6b;
+            border-color: #ff0000;
+            color: white;
+            transform: scale(1.03);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.3);
+        }
+
+        .place-btn.your-place:hover {
+            background: #6bff8a;
+            border-color: #00cc44;
+            color: #1a1a1a;
+            transform: scale(1.03);
+            box-shadow: 0 0 40px rgba(0, 204, 68, 0.3);
+        }
+
+        .place-btn.selected {
+            transform: scale(1.05);
+        }
+
+        .place-btn.selected.my-place {
+            background: #ff6b6b;
+            border-color: #ff0000;
+            color: white;
+        }
+
+        .place-btn.selected.your-place {
+            background: #6bff8a;
+            border-color: #00cc44;
+            color: #1a1a1a;
+        }
+
+        /* --- I Chose Input --- */
+        .ichose-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+            width: 100%;
+        }
+
+        .ichose-container input {
+            padding: 12px 20px;
+            border: 2px solid #b18597;
+            border-radius: 0.75em;
+            font-size: 1rem;
+            background: #fff0f0;
+            color: #382b22;
+            font-family: inherit;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .ichose-container input:focus {
+            outline: none;
+            border-color: #8b6a73;
+            box-shadow: 0 0 0 3px #f9c4d2;
+        }
+
+        .ichose-container .confirm-btn {
+            padding: 12px 40px;
+            background: #ffd6e0;
+            border: 2px solid #b18597;
+            border-radius: 0.75em;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            color: #382b22;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .ichose-container .confirm-btn:hover {
+            background: #ffc8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(177, 133, 151, 0.3);
+        }
+
+        /* --- Hint Input for Somewhere only we know --- */
+        .hint-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+            width: 100%;
+        }
+
+        .hint-container input {
+            padding: 12px 20px;
+            border: 2px solid #b18597;
+            border-radius: 0.75em;
+            font-size: 1rem;
+            background: #fff0f0;
+            color: #382b22;
+            font-family: inherit;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .hint-container input:focus {
+            outline: none;
+            border-color: #8b6a73;
+            box-shadow: 0 0 0 3px #f9c4d2;
+        }
+
+        .hint-container .hint-confirm-btn {
+            padding: 12px 40px;
+            background: #ffd6e0;
+            border: 2px solid #b18597;
+            border-radius: 0.75em;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            color: #382b22;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .hint-container .hint-confirm-btn:hover {
+            background: #ffc8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(177, 133, 151, 0.3);
+        }
+
+        /* --- Date & Time Picker --- */
+        .datetime-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+            width: 100%;
+        }
+
+        .datetime-container .picker-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .datetime-container .picker-group label {
+            font-size: 0.9rem;
+            color: #5a3d44;
+            font-weight: 500;
+        }
+
+        .datetime-container input[type="date"],
+        .datetime-container input[type="time"] {
+            padding: 12px 20px;
+            border: 2px solid #b18597;
+            border-radius: 0.75em;
+            font-size: 1rem;
+            background: #fff0f0;
+            color: #382b22;
+            font-family: inherit;
+            width: 180px;
+        }
+
+        .datetime-container input[type="date"]:focus,
+        .datetime-container input[type="time"]:focus {
+            outline: none;
+            border-color: #8b6a73;
+            box-shadow: 0 0 0 3px #f9c4d2;
+        }
+
+        /* --- Continue Button --- */
+        .continue-btn {
+            margin-top: 20px;
+            padding: 1em 3em;
+            font-size: 1.1rem;
+            background: #ffd6e0;
+            border-color: #b18597;
+            font-weight: 600;
+        }
+
+        .continue-btn::before {
+            background: #f9c4d2;
+        }
+
+        .continue-btn:hover {
+            background: #ffc8d4;
+        }
+
+        .continue-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .continue-btn:disabled::before {
+            box-shadow: 0 0 0 2px #b18597, 0 0.625em 0 0 #ffe3e2 !important;
+        }
+
+        /* --- Text Area --- */
+        .message-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px;
+            border: 2px solid #b18597;
+            border-radius: 0.75em;
+            font-size: 1rem;
+            background: #fff0f0;
+            color: #382b22;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            margin: 10px auto;
+        }
+
+        .message-input:focus {
+            outline: none;
+            border-color: #8b6a73;
+            box-shadow: 0 0 0 3px #f9c4d2;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 15px;
+                min-height: 400px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .step h2 {
+                font-size: 1.4rem;
+            }
+            .star-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                min-width: 140px;
+            }
+            .buttons-wrapper {
+                gap: 15px;
+            }
+            .reveal-btn {
+                min-width: 130px;
+                min-height: 50px;
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+            .place-btn {
+                padding: 15px 30px;
+                font-size: 17px;
+                min-width: 140px;
+                min-height: 60px;
+            }
+            .back-btn {
+                top: 10px;
+                left: 10px;
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            .back-btn svg {
+                width: 14px;
+                height: 14px;
+            }
+            .ichose-container input,
+            .hint-container input {
+                max-width: 100%;
+            }
+            .datetime-container input[type="date"],
+            .datetime-container input[type="time"] {
+                width: 140px;
+                font-size: 0.9rem;
+                padding: 10px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ========== BACK BUTTON ========== -->
+        <button class="back-btn hidden" id="backBtn">
+            <svg viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>
+            <span>Back</span>
+        </button>
+
+        <!-- ========== PROGRESS BAR ========== -->
+        <div class="progress-bar" id="progressBar">
+            <span class="progress-dot active" data-step="0"></span>
+            <span class="progress-dot" data-step="1"></span>
+            <span class="progress-dot" data-step="2"></span>
+            <span class="progress-dot" data-step="3"></span>
+            <span class="progress-dot" data-step="4"></span>
+            <span class="progress-dot" data-step="5"></span>
+        </div>
+
+        <!-- ========== PAGE 0: ASK FOR DATE ========== -->
+        <div class="step active" data-step="0" id="askPage">
+            <h1>💖 Can we go out for a date, Princess?? 💖</h1>
+            <div class="message" id="message">Choose your answer... 👀</div>
+            <div class="buttons-wrapper" id="buttonsWrapper">
+                <button class="learn-more" id="yesBtn">Yes 💕</button>
+                <button class="learn-more" id="noBtn">No 😅</button>
+            </div>
+        </div>
+
+        <!-- ========== STEP 1: WHERE TO GO ========== -->
+        <div class="step" data-step="1" id="stepLocation">
+            <h2>📍 Where are we going?</h2>
+            <p class="sub-message">Choose one, Princess 👑</p>
+            <div class="option-grid" id="locationOptions">
+                <button class="star-btn" data-value="Restaurant/Pizza date">
+                    🍕 Restaurant/Pizza date
+                    <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                </button>
+                <button class="star-btn" data-value="Coffee date">
+                    ☕ Coffee date
+                    <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                </button>
+                <button class="star-btn" data-value="Walk in the park">
+                    🌳 Walk in the park
+                    <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                </button>
+                <button class="star-btn" data-value="My place / Your place">
+                    🏠 My place / Your place
+                    <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                </button>
+                <button class="star-btn" data-value="Somewhere only we know">
+                    🔑 Somewhere only we know
+                    <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                </button>
+                <button class="star-btn" data-value="Surprise me!">
+                    🎁 Surprise me!
+                    <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                </button>
+                <button class="star-btn" data-value="Movie date">
+                    🎥 Movie date
+                    <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- ========== STEP 2: LOCATION DETAILS ========== -->
+        <div class="step" data-step="2" id="stepLocationDetail">
+            <h2 id="detailTitle">📍 Tell me more...</h2>
+            <p class="sub-message" id="detailSub">Choose how we decide, Princess 👑</p>
+            <div id="detailOptions">
+                <!-- Dynamically filled -->
+            </div>
+            <!-- Continue button for Step 2 -->
+            <button class="learn-more continue-btn" id="detailContinue" disabled>Continue ➜</button>
+        </div>
+
+        <!-- ========== STEP 3: WHAT ARE YOU ALLOWED TO DO ========== -->
+        <div class="step" data-step="3" id="stepAllowed">
+            <h2>💞 What are you comfortable with?</h2>
+            <p class="sub-message">Hover to reveal, click to select! (multi-select) 👑</p>
+            <div class="option-grid" id="allowedOptions">
+                <button class="reveal-btn" data-value="Hold hands">
+                    <span class="btn-front">🤝 Hover me</span>
+                    <span class="btn-back">🤝 Hold hands</span>
+                </button>
+                <button class="reveal-btn" data-value="Hugs">
+                    <span class="btn-front">🤗 Hover me</span>
+                    <span class="btn-back">🤗 Hugs</span>
+                </button>
+                <button class="reveal-btn" data-value="Kiss on the cheek">
+                    <span class="btn-front">💋 Hover me</span>
+                    <span class="btn-back">💋 Kiss on cheek</span>
+                </button>
+                <button class="reveal-btn" data-value="Kiss on the lips">
+                    <span class="btn-front">💋💋 Hover me</span>
+                    <span class="btn-back">💋💋 Kiss on lips</span>
+                </button>
+                <button class="reveal-btn" data-value="Cuddling">
+                    <span class="btn-front">😉 Hover me</span>
+                    <span class="btn-back">😉 Cuddling</span>
+                </button>
+                <button class="reveal-btn" data-value="We will see">
+                    <span class="btn-front">👀 Hover me</span>
+                    <span class="btn-back">👀 We will see</span>
+                </button>
+            </div>
+            <button class="learn-more continue-btn" id="allowedContinue" disabled>Continue ➜</button>
+        </div>
+
+        <!-- ========== STEP 4: DATE & TIME ========== -->
+        <div class="step" data-step="4" id="stepDateTime">
+            <h2>📅 When are we meeting?</h2>
+            <p class="sub-message">Pick the date and time 🌙</p>
+            <div class="datetime-container">
+                <div class="picker-group">
+                    <label>📆 Date</label>
+                    <input type="date" id="datePicker" />
+                </div>
+                <div class="picker-group">
+                    <label>⏰ Time</label>
+                    <input type="time" id="timePicker" value="19:00" step="60" />
+                </div>
+            </div>
+            <button class="learn-more continue-btn" id="datetimeContinue">Continue ➜</button>
+        </div>
+
+        <!-- ========== STEP 5: EXTRA MESSAGE & SEND ========== -->
+        <div class="step" data-step="5" id="stepExtra">
+            <h2>💬 Anything else you want to tell me?</h2>
+            <p class="sub-message">Write something sweet... or anything you want! 😊</p>
+            <textarea class="message-input" id="extraMessage" placeholder="I'm really excited to see you... 🥰"></textarea>
+            <button class="learn-more" id="sendBtn" style="margin-top:20px; width:100%;">💌 Complete & Send to Him!</button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // TELEGRAM USERNAME - CHANGE THIS
+        // ============================================================
+        const TELEGRAM_USERNAME = 'RBLBL_HM';
+
+        // ============================================================
+        // STATE
+        // ============================================================
+        const state = {
+            location: null,
+            locationDetail: null,
+            locationDetailText: null,
+            locationHint: null, // For "Somewhere only we know"
+            allowed: [],
+            date: '',
+            time: '19:00',
+            extra: ''
+        };
+
+        // ============================================================
+        // PAGE 0: YES/NO BUTTON GAME
+        // ============================================================
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const message = document.getElementById('message');
+
+        let noClickCount = 0;
+        let yesScale = 1;
+        let noScale = 1;
+
+        noBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            noClickCount++;
+
+            yesScale = Math.min(1 + noClickCount * 0.3, 3.5);
+            noScale = Math.max(1 - noClickCount * 0.12, 0.01);
+
+            yesBtn.style.transform = `scale(${yesScale})`;
+            noBtn.style.transform = `scale(${noScale})`;
+
+            const msgs = [
+                "What? Didn't hear you! Choose again! 🤨",
+                "Still didn't catch that! Try again! 😤",
+                "Are you sure? I'll ask again! 😠",
+                "This is your last chance... 😡",
+                "OK, I'm not giving up! 🔁",
+                "You're being difficult! 😅",
+                "Just say yes already! 🙄",
+                "I'll keep asking! 💪",
+                "One more time! 🥺"
+            ];
+            const idx = Math.min(noClickCount - 1, msgs.length - 1);
+            message.textContent = msgs[idx];
+
+            if (noScale < 0.08) {
+                noBtn.style.visibility = 'hidden';
+                noBtn.style.pointerEvents = 'none';
+                yesBtn.style.transform = `scale(4)`;
+                message.textContent = "There's only one choice now! 😍";
+            }
+
+            noBtn.style.animation = 'none';
+            setTimeout(() => {
+                noBtn.style.animation = 'shake 0.3s ease';
+            }, 10);
+
+            yesBtn.classList.remove('celebrate');
+            setTimeout(() => {
+                yesBtn.classList.add('celebrate');
+            }, 10);
+        });
+
+        // Shake animation
+        const styleSheet = document.createElement("style");
+        styleSheet.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0) scale(${noScale}); }
+                25% { transform: translateX(-8px) scale(${noScale}); }
+                75% { transform: translateX(8px) scale(${noScale}); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+        // YES button - transition to step 1
+        yesBtn.addEventListener('click', function () {
+            message.textContent = "YAAAY! I knew it! 🎉❤️ Now let's plan our perfect date!";
+            yesBtn.classList.remove('celebrate');
+            setTimeout(() => {
+                yesBtn.classList.add('celebrate');
+            }, 10);
+
+            setTimeout(() => {
+                goToStep(1);
+                document.getElementById('backBtn').classList.remove('hidden');
+            }, 600);
+        });
+
+        // ============================================================
+        // STEP NAVIGATION
+        // ============================================================
+        let currentStep = 0;
+        const totalSteps = 6;
+
+        function goToStep(step) {
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            const target = document.querySelector(`.step[data-step="${step}"]`);
+            if (target) target.classList.add('active');
+            currentStep = step;
+            updateProgress(step);
+            
+            // Show/hide back button
+            const backBtn = document.getElementById('backBtn');
+            if (step === 0) {
+                backBtn.classList.add('hidden');
+            } else {
+                backBtn.classList.remove('hidden');
+            }
+        }
+
+        function updateProgress(step) {
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active', 'done');
+                if (index === step) dot.classList.add('active');
+                else if (index < step) dot.classList.add('done');
+            });
+        }
+
+        // Back button
+        document.getElementById('backBtn').addEventListener('click', function() {
+            if (currentStep > 0) {
+                goToStep(currentStep - 1);
+            }
+        });
+
+        // ============================================================
+        // STEP 1: LOCATION (Star buttons)
+        // ============================================================
+        const locationBtns = document.querySelectorAll('#locationOptions .star-btn');
+
+        locationBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                locationBtns.forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                state.location = this.dataset.value;
+                
+                // Check if location skips Step 2 (Surprise me & Movie date)
+                const skipDetail = ['Surprise me!', 'Movie date'];
+                if (skipDetail.includes(state.location)) {
+                    state.locationDetail = 'No details needed';
+                    state.locationDetailText = null;
+                    state.locationHint = null;
+                    // Go directly to Step 3 (allowed actions)
+                    setTimeout(() => goToStep(3), 300);
+                } else {
+                    // Go to Step 2 (location detail)
+                    setTimeout(() => {
+                        setupLocationDetail(state.location);
+                        goToStep(2);
+                    }, 300);
+                }
+            });
+        });
+
+        // ============================================================
+        // STEP 2: LOCATION DETAILS
+        // ============================================================
+        let detailContinueEnabled = false;
+
+        function setupLocationDetail(location) {
+            const title = document.getElementById('detailTitle');
+            const sub = document.getElementById('detailSub');
+            const container = document.getElementById('detailOptions');
+            const continueBtn = document.getElementById('detailContinue');
+            
+            container.innerHTML = '';
+            continueBtn.disabled = true;
+            detailContinueEnabled = false;
+
+            if (location === 'My place / Your place') {
+                // Special case: My/Your place with emoji animations
+                title.textContent = '🏠 My place or Your place?';
+                sub.textContent = 'Choose where we\'ll be, Princess 👑';
+                
+                const myBtn = document.createElement('button');
+                myBtn.className = 'place-btn my-place';
+                myBtn.innerHTML = '🏠 My place <span class="emoji-container" id="myEmojis"></span>';
+                myBtn.addEventListener('click', function() {
+                    document.querySelectorAll('.place-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    state.locationDetail = 'My place';
+                    state.locationDetailText = null;
+                    state.locationHint = null;
+                    continueBtn.disabled = false;
+                    detailContinueEnabled = true;
+                });
+                // Hover emojis for My place
+                myBtn.addEventListener('mouseenter', function() {
+                    const container = this.querySelector('.emoji-container');
+                    const emojis = ['😢','😭','💔','🥺','😞','💧'];
+                    for (let i = 0; i < 12; i++) {
+                        setTimeout(() => {
+                            const span = document.createElement('span');
+                            span.className = 'floating-emoji';
+                            span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                            span.style.left = Math.random() * 80 + 10 + '%';
+                            span.style.bottom = '0';
+                            container.appendChild(span);
+                            setTimeout(() => span.remove(), 2500);
+                        }, i * 200);
+                    }
+                });
+                container.appendChild(myBtn);
+
+                const yourBtn = document.createElement('button');
+                yourBtn.className = 'place-btn your-place';
+                yourBtn.innerHTML = '🏠 Your place <span class="emoji-container" id="yourEmojis"></span>';
+                yourBtn.addEventListener('click', function() {
+                    document.querySelectorAll('.place-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    state.locationDetail = 'Your place';
+                    state.locationDetailText = null;
+                    state.locationHint = null;
+                    continueBtn.disabled = false;
+                    detailContinueEnabled = true;
+                });
+                // Hover emojis for Your place
+                yourBtn.addEventListener('mouseenter', function() {
+                    const container = this.querySelector('.emoji-container');
+                    const emojis = ['😊','🥰','💕','❤️','✨','😍'];
+                    for (let i = 0; i < 12; i++) {
+                        setTimeout(() => {
+                            const span = document.createElement('span');
+                            span.className = 'floating-emoji';
+                            span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                            span.style.left = Math.random() * 80 + 10 + '%';
+                            span.style.bottom = '0';
+                            container.appendChild(span);
+                            setTimeout(() => span.remove(), 2500);
+                        }, i * 200);
+                    }
+                });
+                container.appendChild(yourBtn);
+
+                // Continue button handler
+                continueBtn.onclick = function() {
+                    if (detailContinueEnabled) {
+                        goToStep(3);
+                    }
+                };
+                return;
+            }
+
+            // Special case: Somewhere only we know - text input for hint
+            if (location === 'Somewhere only we know') {
+                title.textContent = '🔑 Somewhere only we know';
+                sub.textContent = 'Give me a hint or detail about our secret place 👑';
+                
+                const hintContainer = document.createElement('div');
+                hintContainer.className = 'hint-container';
+                
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.placeholder = 'Enter a hint or detail...';
+                input.id = 'hintInput';
+                
+                const confirmBtn = document.createElement('button');
+                confirmBtn.className = 'hint-confirm-btn';
+                confirmBtn.textContent = '✅ Got it! Let\'s continue';
+                confirmBtn.addEventListener('click', function() {
+                    const val = input.value.trim();
+                    if (val) {
+                        state.locationDetail = 'Somewhere only we know';
+                        state.locationDetailText = null;
+                        state.locationHint = val;
+                        continueBtn.disabled = false;
+                        detailContinueEnabled = true;
+                        input.style.borderColor = '#b18597';
+                        input.style.boxShadow = 'none';
+                    } else {
+                        input.style.borderColor = '#ff6b6b';
+                        input.style.boxShadow = '0 0 20px rgba(255,0,0,0.2)';
+                        setTimeout(() => {
+                            input.style.borderColor = '#b18597';
+                            input.style.boxShadow = 'none';
+                        }, 2000);
+                    }
+                });
+                
+                hintContainer.appendChild(input);
+                hintContainer.appendChild(confirmBtn);
+                container.appendChild(hintContainer);
+
+                continueBtn.onclick = function() {
+                    if (detailContinueEnabled) {
+                        goToStep(3);
+                    }
+                };
+                return;
+            }
+
+            // For Restaurant/Pizza and Coffee: 3 options
+            if (location === 'Restaurant/Pizza date' || location === 'Coffee date') {
+                title.textContent = `📍 ${location}`;
+                sub.textContent = 'How do you want to decide, Princess? 👑';
+                
+                // Option 1: I chose (with text input)
+                const choseContainer = document.createElement('div');
+                choseContainer.className = 'ichose-container';
+                
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.placeholder = location === 'Restaurant/Pizza date' ? 'Which restaurant/pizza place?' : 'Which coffee shop?';
+                input.id = 'ichoseInput';
+                
+                const confirmBtn = document.createElement('button');
+                confirmBtn.className = 'confirm-btn';
+                confirmBtn.textContent = '✅ I chose this!';
+                confirmBtn.addEventListener('click', function() {
+                    const val = input.value.trim();
+                    if (val) {
+                        state.locationDetail = 'I chose';
+                        state.locationDetailText = val;
+                        state.locationHint = null;
+                        continueBtn.disabled = false;
+                        detailContinueEnabled = true;
+                        input.style.borderColor = '#b18597';
+                        input.style.boxShadow = 'none';
+                    } else {
+                        input.style.borderColor = '#ff6b6b';
+                        input.style.boxShadow = '0 0 20px rgba(255,0,0,0.2)';
+                        setTimeout(() => {
+                            input.style.borderColor = '#b18597';
+                            input.style.boxShadow = 'none';
+                        }, 2000);
+                    }
+                });
+                
+                choseContainer.appendChild(input);
+                choseContainer.appendChild(confirmBtn);
+                container.appendChild(choseContainer);
+
+                // Option 2: You choose
+                const youBtn = document.createElement('button');
+                youBtn.className = 'detail-btn';
+                youBtn.textContent = '✨ You choose';
+                youBtn.addEventListener('click', function() {
+                    document.querySelectorAll('.detail-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    state.locationDetail = 'You choose';
+                    state.locationDetailText = null;
+                    state.locationHint = null;
+                    continueBtn.disabled = false;
+                    detailContinueEnabled = true;
+                });
+                container.appendChild(youBtn);
+
+                // Option 3: We will talk about it
+                const talkBtn = document.createElement('button');
+                talkBtn.className = 'detail-btn';
+                talkBtn.textContent = '💬 We will talk about it';
+                talkBtn.addEventListener('click', function() {
+                    document.querySelectorAll('.detail-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    state.locationDetail = 'We will talk about it';
+                    state.locationDetailText = null;
+                    state.locationHint = null;
+                    continueBtn.disabled = false;
+                    detailContinueEnabled = true;
+                });
+                container.appendChild(talkBtn);
+
+                continueBtn.onclick = function() {
+                    if (detailContinueEnabled) {
+                        goToStep(3);
+                    }
+                };
+                return;
+            }
+
+            // For other locations (Walk in the park)
+            title.textContent = `📍 ${location}`;
+            sub.textContent = 'How do you want to decide, Princess? 👑';
+            
+            const choices = [
+                { value: 'You choose', label: '✨ You choose' },
+                { value: 'We will talk about it', label: '💬 We will talk about it' }
+            ];
+
+            choices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = 'detail-btn';
+                btn.textContent = choice.label;
+                btn.dataset.value = choice.value;
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.detail-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    state.locationDetail = choice.value;
+                    state.locationDetailText = null;
+                    state.locationHint = null;
+                    continueBtn.disabled = false;
+                    detailContinueEnabled = true;
+                });
+                container.appendChild(btn);
+            });
+
+            continueBtn.onclick = function() {
+                if (detailContinueEnabled) {
+                    goToStep(3);
+                }
+            };
+        }
+
+        // ============================================================
+        // STEP 3: ALLOWED ACTIONS (Multi-select with hover reveal)
+        // ============================================================
+        const allowedBtns = document.querySelectorAll('#allowedOptions .reveal-btn');
+        const allowedContinue = document.getElementById('allowedContinue');
+
+        allowedBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                this.classList.toggle('selected');
+                state.allowed = [];
+                document.querySelectorAll('#allowedOptions .reveal-btn.selected').forEach(b => {
+                    state.allowed.push(b.dataset.value);
+                });
+                allowedContinue.disabled = state.allowed.length === 0;
+            });
+        });
+
+        allowedContinue.addEventListener('click', function() {
+            if (state.allowed.length > 0) {
+                goToStep(4);
+            }
+        });
+
+        // ============================================================
+        // STEP 4: DATE & TIME
+        // ============================================================
+        const datePicker = document.getElementById('datePicker');
+        const timePicker = document.getElementById('timePicker');
+        const datetimeContinue = document.getElementById('datetimeContinue');
+
+        // Set default date to today
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        datePicker.value = `${year}-${month}-${day}`;
+        state.date = datePicker.value;
+
+        // Set default time
+        timePicker.value = '19:00';
+        state.time = '19:00';
+
+        datePicker.addEventListener('change', function() {
+            state.date = this.value;
+        });
+
+        timePicker.addEventListener('change', function() {
+            state.time = this.value;
+        });
+
+        datetimeContinue.addEventListener('click', function() {
+            state.date = datePicker.value;
+            state.time = timePicker.value;
+            goToStep(5);
+        });
+
+        // ============================================================
+        // STEP 5: EXTRA MESSAGE & SEND
+        // ============================================================
+        const extraMessage = document.getElementById('extraMessage');
+        const sendBtn = document.getElementById('sendBtn');
+
+        extraMessage.addEventListener('input', function () {
+            state.extra = this.value;
+        });
+
+        sendBtn.addEventListener('click', function () {
+            state.extra = extraMessage.value;
+
+            // Format date
+            let dateStr = state.date;
+            if (dateStr) {
+                const [y, m, d] = dateStr.split('-');
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                dateStr = `${months[parseInt(m) - 1]} ${parseInt(d)}, ${y}`;
+            } else {
+                dateStr = 'Not specified';
+            }
+
+            // Format time with AM/PM
+            let timeStr = state.time;
+            if (timeStr) {
+                const [hours, minutes] = timeStr.split(':');
+                const h = parseInt(hours);
+                const ampm = h >= 12 ? 'PM' : 'AM';
+                const h12 = h % 12 || 12;
+                timeStr = `${h12}:${minutes} ${ampm}`;
+            } else {
+                timeStr = 'Not specified';
+            }
+
+            // Build location detail string
+            let detailStr = '';
+            if (state.location === 'Somewhere only we know' && state.locationHint) {
+                detailStr = `📍 ${state.location} (Hint: ${state.locationHint})`;
+            } else if (state.locationDetail === 'I chose' && state.locationDetailText) {
+                detailStr = `📍 ${state.location} (I chose: ${state.locationDetailText})`;
+            } else if (state.locationDetail && state.locationDetail !== 'No details needed') {
+                detailStr = `📍 ${state.location} (${state.locationDetail})`;
+            } else {
+                detailStr = `📍 ${state.location}`;
+            }
+
+            // Build the message
+            const messageText = `💖 AGREED TO THE DATE! 💖
+
+${detailStr}
+💞 Allowed: ${state.allowed.join(', ') || 'Not specified'}
+📅 Date: ${dateStr}
+⏰ Time: ${timeStr}
+💬 Extra note: "${state.extra || 'Nothing extra'}"
+
+Get on time! `;
+
+            const encodedMessage = encodeURIComponent(messageText);
+
+            // Open Telegram
+            window.location.href = `https://t.me/${TELEGRAM_USERNAME}?text=${encodedMessage}`;
+
+            // UI feedback
+            this.textContent = '💖 SENT! Check your Telegram! 💖';
+            this.style.transform = 'scale(1.1)';
+            this.style.background = '#ffc8d4';
+            
+            // Celebration
+            createCelebration();
+        });
+
+        // ============================================================
+        // CELEBRATION EFFECT
+        // ============================================================
+        function createCelebration() {
+            const emojis = ['❤️', '💕', '💖', '💗', '💝', '✨', '🎉', '🥰', '😍', '💋'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const el = document.createElement('div');
+                    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    el.style.position = 'fixed';
+                    el.style.left = Math.random() * 100 + 'vw';
+                    el.style.top = '-20px';
+                    el.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                    el.style.pointerEvents = 'none';
+                    el.style.zIndex = '9999';
+                    el.style.animation = `fall ${Math.random() * 2 + 2}s linear forwards`;
+                    document.body.appendChild(el);
+                    setTimeout(() => el.remove(), 4000);
+                }, i * 80);
+            }
+        }
+
+        // Add fall animation
+        const fallStyle = document.createElement('style');
+        fallStyle.textContent = `
+            @keyframes fall {
+                0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+                100% { transform: translateY(110vh) rotate(720deg) scale(0.5); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(fallStyle);
+
+        // ============================================================
+        // INITIALIZATION
+        // ============================================================
+        console.log('💕 Date website ready! Change TELEGRAM_USERNAME to your own.');
+    </script>
+</body>
+</html>
